@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <style>
+        /*#container{*/
+        /*    background-color: #ffffff;*/
+        /*    border-radius: 10px;*/
+        /*    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);*/
+        /*    position: relative;*/
+        /*    overflow: hidden;*/
+        /*    width: 768px;*/
+        /*    max-width: 100%;*/
+        /*    min-height: 480px;*/
+        /*}
+
+         */
+
+        .signInForm{
+            left:0;
+            z-index: 2;
+            position: absolute;
+            padding: 0 40px;
+            top: 0;
+            width: 50%;
+            /*transform: translateX(15px);*/
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+
+        .signUpform1{
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            /*top: 20px;*/
+            width: 50%;
+            height: 100%;
+            opacity: 0.5;
+
+        }
+        .signUpForm{
+            /*position: absolute;*/
+            /*z-index: 2;*/
+            /*left: 0;*/
+            /*width: 50%;*/
+            position: absolute;
+            z-index: 201;
+            right: 0;
+
+            width: 50%;
+            height: 100%;
+
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.6s;
+
+        }
+        #overlay-container{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+        #signIn{
+
+        }
+        .overlay{
+             background: #33b5e5;
+             background-repeat: no-repeat;
+             background-size: cover;
+             background-position: 0 0;
+             position: relative;
+             width: 200%;
+             color: #ffffff;
+             position: relative;
+             left: -100%;
+             /*left: 0%;*/
+             /*right: 0;*/
+             /*z-index: 401;*/
+
+             height: 100%;
+             width: 200%;
+             text-align: center;
+         }
+
+
+
+        .overlay-left{
+            position: absolute;
+            left: 0px;
+            height: 100%;
+            width: 50%;
+
+        }
+        .overlay-left-transform{
+            left: 0;
+            /*transform: translateX(20%);*/
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            z-index: 400;
+            transform: translateX(15px);
+        }
+        .overlay-right{
+            right: 5%;
+            /*transform: translateX(20%);*/
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(15px);
+            /*transition: transform 50s ease-in-out*/
+
+        }
+        p {
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 20px 0 30px;
+        }
+
+        a {
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        form {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+        .but {
+            border-radius: 20px;
+            border: 1px solid #FFFFFF;
+            background-color: #33b5e5;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 14px 35px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+        }
+
+        .social-container a {
+            border: 1px solid #dddddd;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            height: 40px;
+            width: 40px;
+        }
+        .social-container {
+            margin: 5px ;
+        }
+
+        #container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 480px;
+            top: 70px;
+            left: 250px;
+        }
+
+        .but {
+            border-radius: 20px;
+            border: 1px solid #FFFFFF;
+            background-color: #33b5e5;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 14px 35px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+        }
+    </style>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#signUp").click(function () {
+                $(".signUpform1").toggleClass("signUpForm");
+                $(".overlay-left").toggleClass("overlay-left-transform");
+
+            })
+        })
+    </script>
+</head>
+<body>
+<div id="container">
+    <div class="signUpform1">
+        <form action="#">
+            <h1 class="font-weight-bold">Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button class="btn btn-info btn-rounded">Sign up</button>
+        </form>
+    </div>
+    <div class="signInForm">
+        <form action="#" id="forStyle">
+            <h1 class="font-weight-bold">Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div><br>
+            <span>or use your account</span>
+            <input type="email" placeholder="Email"  />
+            <input type="password" placeholder="Password" />
+            <button class="btn btn-info btn-rounded ">Sign In</button>
+        </form>
+    </div>
+    <div id="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left" >
+                <h1 class="font-weight-bold">Good to see you!</h1>
+                <p>You already have an account? <br>Sign in!</p>
+                <button class="but" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1 class="font-weight-bold">Hello, Friend!</h1>
+                <p>You don't have account yet? Don't worry! You still can join us</p>
+                <button class="but" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

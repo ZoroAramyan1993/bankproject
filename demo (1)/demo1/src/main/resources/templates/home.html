@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var userName = window.localStorage.getItem("userName");
+            $('h1').append().text("welcome " + userName);
+
+            // $("#logout").click(function() {
+            //     window.localStorage.removeItem("userData");
+            //     console.log(window.localStorage.getItem("userData"));
+            //     window.location.replace("/")
+            // });
+            //
+            //
+            // $("#button").click(function() {
+            //
+            //     $.ajax({
+            //
+            //
+            //         url:"http://localhost:8090/api/auth/clients/cart?"+"cartNumber="+
+            //             $("#cartNumber").val()+"&secretNumber="+$("#secretNumber").val(),
+            //         type:"GET",
+            //     headers:{
+            //
+            //         "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            //     },
+            //
+            //         success:function (data) {
+            //         console.log(data)
+            //          $("#m").append().text(data.money)
+            //     },
+            //         error: function (data) {
+            //             console.log(data)
+            //         }
+            // })
+            // });
+            //
+            //
+            //
+            // $("#b").click(function() {
+            //     $.ajax({
+            //         url:"http://localhost:8090/api/auth/clients/"+localStorage.getItem("userName")+"/cart?"+"cartNumber="+
+            //             $("#cartNumber").val()+"&secretNumber="+$("#secretNumber").val(),
+            //         type:"GET",
+            //         headers:{
+            //             "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            //         },
+            //
+            //         success:function (data) {
+            //             console.log(data);
+            //             $("#m").append().text(data.money);
+            //         },
+            //         error: function (data) {
+            //             console.log(data);
+            //         }
+            //     })
+            // });
+            //
+            //
+            //
+            // $("#bn").click(function () {
+            //
+            //
+            //     var cartParam = {
+            //         cartNumber: $("#cartN").val(),
+            //         secretNumber: $("#secretN").val(),
+            //         account: $("#account").val(),
+            //         money: $("#money").val()
+            //     };
+            //
+            //     var requestJson = JSON.stringify(cartParam);
+            //
+            //
+            //     $.ajax({
+            //         type: "POST",
+            //         // headers:{
+            //         //
+            //         //
+            //         // },
+            //         headers : {
+            //             "Content-Type" : "application/json",
+            //             "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            //         },
+            //
+            //         url: "http://localhost:8090/api/auth/clients/saveCards"+"?"+"clientsId="+$("#clientId").val(),
+            //         data: requestJson,
+            //         success: function (data) {
+            //             var text = data.message;
+            //
+            //             $("#ok").text(text);
+            //
+            //             console.log(data)
+            //         },
+            //         error: function (data) {
+            //
+            //         }
+            //
+            //     });
+            // });
+            //
+            //
+            // $("#transfer").click(function () {
+            //
+            //
+            //
+            //
+            //     $.ajax({
+            //
+            //         type:"GET",
+            //         url:"http://localhost:8090/api/auth/clients/cards?" + "money=" + $("#m1").val() +
+            //             "&account=" + $("#a").val() + "&userName=" + window.localStorage.getItem("userName"),
+            //
+            //         headers:{
+            //             "Authorization" : "Bearer " + window.localStorage.getItem("userData")
+            //
+            //         },
+            //
+            //
+            //
+            //         success:function (data) {
+            //
+            //             console.log(data);
+            //             $("#a1").append().text(data.money + " " + data.account + " " + data.userName);
+            //             $("#updateId").append().text("successfully");
+            //         },
+            //         error:function (data) {
+            //
+            //             alert("transaction field")
+            //         }
+            //     });
+            //
+            // });
+            //
+            //
+            // $("#updateCard").click(function () {
+            //     var cartParam = {
+            //         cartNumber:$("#cartN").val(),
+            //         secretNumber:$("#secretN").val(),
+            //         account:$("#account").val(),
+            //         money:$("#money").val()
+            //     };
+            //     var requestJSON = JSON.stringify(cartParam);
+            //     $.ajax({
+            //         type:"PUT",
+            //         headers : {
+            //             "Content-Type":"application/json",
+            //             "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            //         },
+            //         url: "http://localhost:8090/api/auth/clients/updateCards"+"?"+"clientsId="+$("#clientId").val(),
+            //         data: requestJSON,
+            //         success:function (data) {
+            //             console.log(data)
+            //         },
+            //         error:function (data) {
+            //
+            //         }
+            //     })
+            // })
+            //
+            //
+            //     $("#deleteCard").click(function () {
+            //         $.ajax({
+            //             type:"DELETE",
+            //             url:"http://localhost:8090/api/auth/clients/deleteCard" +"?" + "id=" + $("#deleteId").val(),
+            //             headers:{
+            //                 "Authorization" : "Bearer " + window.localStorage.getItem("userData")
+            //             },
+            //             success:function (data) {
+            //                 console.log(data)
+            //                 alert("deleted")
+            //             },
+            //             error:function(data){
+            //
+            //             }
+            //         })
+            //     })
+            // });
+            //
+            logout();
+            showMoney();
+            showMoneyOne();
+            saveCard();
+            transferMoney();
+            updateCard();
+            deleteCard();
+       })
+
+function logout(){
+    $("#logout").click(function() {
+        window.localStorage.removeItem("userData");
+        console.log(window.localStorage.getItem("userData"));
+        window.location.replace("/")
+    });
+}
+function showMoney() {
+    $("#button").click(function() {
+
+        $.ajax({
+
+
+            url:"http://localhost:8090/api/auth/clients/cart?"+"cartNumber="+
+                $("#cartNumber").val()+"&secretNumber="+$("#secretNumber").val(),
+            type:"GET",
+            headers:{
+
+                "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            },
+
+            success:function (data) {
+                console.log(data)
+                $("#m").append().text(data.money)
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        })
+    });
+
+}
+function showMoneyOne(){
+    $("#b").click(function() {
+        $.ajax({
+            url:"http://localhost:8090/api/auth/clients/"+localStorage.getItem("userName")+"/cart?"+"cartNumber="+
+                $("#cartNumber").val()+"&secretNumber="+$("#secretNumber").val(),
+            type:"GET",
+            headers:{
+                "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            },
+
+            success:function (data) {
+                console.log(data);
+                $("#m").append().text(data.money);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    });
+
+}
+function saveCard(){
+    $("#bn").click(function () {
+
+
+        var cartParam = {
+            cartNumber: $("#cartN").val(),
+            secretNumber: $("#secretN").val(),
+            account: $("#account").val(),
+            money: $("#money").val()
+        };
+
+        var requestJson = JSON.stringify(cartParam);
+
+
+        $.ajax({
+            type: "POST",
+            // headers:{
+            //
+            //
+            // },
+            headers : {
+                "Content-Type" : "application/json",
+                "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            },
+
+            url: "http://localhost:8090/api/auth/clients/saveCards"+"?"+"clientsId="+$("#clientId").val(),
+            data: requestJson,
+            success: function (data) {
+                var text = data.message;
+
+                $("#ok").text(text);
+
+                console.log(data)
+            },
+            error: function (data) {
+
+            }
+
+        });
+    });
+}
+function transferMoney(){
+    $("#transfer").click(function () {
+
+
+
+
+        $.ajax({
+
+            type:"GET",
+            url:"http://localhost:8090/api/auth/clients/cards?" + "money=" + $("#m1").val() +
+                "&account=" + $("#a").val() + "&userName=" + window.localStorage.getItem("userName"),
+
+            headers:{
+                "Authorization" : "Bearer " + window.localStorage.getItem("userData")
+
+            },
+
+
+
+            success:function (data) {
+
+                console.log(data);
+                $("#a1").append().text(data.money + " " + data.account + " " + data.userName);
+                $("#updateId").append().text("successfully");
+            },
+            error:function (data) {
+
+                alert("transaction field")
+            }
+        });
+
+    });
+}
+function updateCard(){
+    $("#updateCard").click(function () {
+        var cartParam = {
+            cartNumber:$("#cartN").val(),
+            secretNumber:$("#secretN").val(),
+            account:$("#account").val(),
+            money:$("#money").val()
+        };
+        var requestJSON = JSON.stringify(cartParam);
+        $.ajax({
+            type:"PUT",
+            headers : {
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+window.localStorage.getItem("userData")
+            },
+            url: "http://localhost:8090/api/auth/clients/updateCards"+"?"+"clientsId="+$("#clientId").val(),
+            data: requestJSON,
+            success:function (data) {
+                console.log(data)
+            },
+            error:function (data) {
+
+            }
+        })
+    })
+}
+function deleteCard(){
+
+    $("#deleteCard").click(function () {
+        $.ajax({
+            type:"DELETE",
+            url:"http://localhost:8090/api/auth/clients/deleteCard" +"?" + "id=" + $("#deleteId").val(),
+            headers:{
+                "Authorization" : "Bearer " + window.localStorage.getItem("userData")
+            },
+            success:function (data) {
+                console.log(data)
+                alert("deleted")
+            },
+            error:function(data){
+
+            }
+        })
+    })
+}
+
+
+        // function f() {
+        //     $.ajax({
+        //         url:"http://localhost:8090/api/auth//clients/"+localStorage.getItem("userName")+"/cart?"+"cartNumber="+
+        //             $("#cartNumber").val()+"&secretNumber="+$("#secretNumber").val(),
+        //         type:"GET",
+        //         headers:{
+        //             "Authorization":"Bearer "+window.localStorage.getItem("userData")
+        //         },
+        //         success:function (data) {
+        //             console.log(data);
+        //             $("#m").append().text(data.money);
+        //         },
+        //         error: function (data) {
+        //             console.log(data);
+        //         }
+        //     })
+        // }
+    </script>
+
+
+
+</head>
+<body>
+<div style="width: 1000px; display: flex; justify-content: space-around">
+
+<div style="width: 400px">
+<h1></h1>
+
+
+
+<input type="text" id="cartNumber" placeholder="input your cart number" required><br>
+
+<p> secret number: </p>
+<input type="text" id="secretNumber" placeholder="input your secret number" required><br>
+
+<input type="button" id="button" value="account"><br>
+    <input type="button" id="b" value="Money" ><br>
+<button id="logout" >Logout</button>
+    <h3 id="m"> </h3>
+</div>
+
+
+<div style="width: 400px">
+    <p>Input card's clientid </p>
+    <input type="text" id="clientId" placeholder="input clientId"><br>
+
+    <p>Input cartNumber of client's card</p>
+    <input type="text" id="cartN" placeholder="input cartNumber"><br>
+
+    <p>Input secretNumber of client's card</p>
+    <input type="text" id="secretN" placeholder="input secretNumber"><br>
+
+    <p>Input account of client's card</p>
+    <input type="text" id="account" placeholder="input your account"><br>
+
+    <p>Input money of client's card</p>
+    <input type="text" id="money" placeholder="input your money"><br>
+    <input type="button" id="bn" value="submit"><br>
+     <input type="button" id="updateCard" value="refresh"><br>
+    <br>
+
+
+
+
+    <input type="text" id="a" placeholder="input account">
+    <input type="text" id="m1" placeholder="input money">
+    <input type="button" id="transfer" value="submit">
+    <h3 id="a1"></h3>
+
+    <h3 id="updateId" style="color:red" ></h3>
+    <span id="ok" style="color:red"></span>
+
+
+
+    <input type="text" id="deleteId" placeholder="enter id"><br>
+    <input type="button" id="deleteCard" value="delete"><br>
+</div>
+</div>
+</body>
+</html>
